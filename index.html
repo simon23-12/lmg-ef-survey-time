@@ -1,0 +1,417 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LMG English EF: Survey Time</title>
+<meta name="description" content="How does parents' divorce affect teenagers? Estimate six real statistics and see how close you are.">
+<style>
+  :root {
+    --bg: #f6f4ef;
+    --card: #ffffff;
+    --ink: #1d2a33;
+    --muted: #5d6b75;
+    --line: #dfdad0;
+    --accent: #0f6b66;
+    --accent-ink: #ffffff;
+    --accent-soft: #dcefec;
+    --guess: #c2562b;
+    --good: #2e7d4f;
+    --warn: #b7791f;
+    --bad: #b3362f;
+    --shadow: 0 1px 2px rgba(20, 30, 40, .06), 0 8px 28px rgba(20, 30, 40, .08);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #12181c;
+      --card: #1b2329;
+      --ink: #eaf0f3;
+      --muted: #9aa9b3;
+      --line: #2e3a42;
+      --accent: #4fc3b8;
+      --accent-ink: #08201e;
+      --accent-soft: #1c3836;
+      --guess: #f08a5d;
+      --good: #6fcf97;
+      --warn: #e5b04d;
+      --bad: #ee7b72;
+      --shadow: 0 1px 2px rgba(0,0,0,.4), 0 8px 28px rgba(0,0,0,.35);
+    }
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font: 17px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    min-height: 100vh;
+    -webkit-text-size-adjust: 100%;
+  }
+  main { max-width: 720px; margin: 0 auto; padding: 24px 16px 64px; }
+  h1, h2, h3 { line-height: 1.2; margin: 0; letter-spacing: -0.01em; }
+  p { margin: 0 0 12px; }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    box-shadow: var(--shadow);
+    padding: 28px 24px;
+  }
+  .hidden { display: none !important; }
+  button {
+    font: inherit; font-weight: 650;
+    border: 0; border-radius: 999px;
+    padding: 14px 30px;
+    background: var(--accent); color: var(--accent-ink);
+    cursor: pointer;
+    transition: transform .08s ease, opacity .15s ease;
+  }
+  button:hover:not(:disabled) { transform: translateY(-1px); }
+  button:active:not(:disabled) { transform: translateY(0); }
+  button:disabled { opacity: .35; cursor: not-allowed; }
+  button.ghost { background: transparent; color: var(--accent); border: 2px solid var(--accent); padding: 12px 24px; }
+  button:focus-visible, input:focus-visible { outline: 3px solid var(--guess); outline-offset: 3px; }
+
+  /* ---------- start ---------- */
+  #start { text-align: center; padding-top: 12vh; }
+  #start .kicker { font-size: .85rem; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); font-weight: 700; margin-bottom: 14px; }
+  #start h1 { font-size: clamp(2.2rem, 8vw, 3.6rem); margin-bottom: 14px; }
+  #start h1 span { color: var(--guess); }
+  #start .sub { color: var(--muted); max-width: 30em; margin: 0 auto 32px; }
+  #start button { font-size: 1.25rem; padding: 16px 56px; }
+  #last { margin-top: 22px; font-size: .95rem; color: var(--muted); }
+  #last button { background: none; color: var(--accent); padding: 0; border-radius: 0; text-decoration: underline; font-weight: 600; }
+
+  /* ---------- question ---------- */
+  .progress { display: flex; gap: 6px; margin-bottom: 22px; }
+  .progress i { flex: 1; height: 6px; border-radius: 3px; background: var(--line); }
+  .progress i.done { background: var(--accent); }
+  .progress i.now { background: var(--guess); }
+  .qnum { font-size: .85rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); font-weight: 700; margin-bottom: 8px; }
+  .qtitle { font-size: 1.45rem; margin-bottom: 14px; }
+  .qctx { color: var(--muted); font-size: .98rem; }
+  .readout { text-align: center; margin: 26px 0 6px; min-height: 5.4rem; }
+  .readout .num { font-size: 4rem; font-weight: 800; line-height: 1; color: var(--guess); font-variant-numeric: tabular-nums; }
+  .readout .unit { color: var(--muted); font-size: .95rem; margin-top: 4px; }
+  .readout .hint { color: var(--muted); font-size: 1.05rem; padding-top: 1.4rem; }
+  .sliderwrap { padding: 6px 4px 0; }
+  input[type=range] { -webkit-appearance: none; appearance: none; width: 100%; height: 44px; background: transparent; cursor: pointer; margin: 0; }
+  input[type=range]::-webkit-slider-runnable-track { height: 10px; border-radius: 5px; background: linear-gradient(90deg, var(--accent-soft), var(--accent)); }
+  input[type=range]::-moz-range-track { height: 10px; border-radius: 5px; background: linear-gradient(90deg, var(--accent-soft), var(--accent)); }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 32px; height: 32px; border-radius: 50%; background: var(--guess); border: 4px solid var(--card); box-shadow: 0 2px 8px rgba(0,0,0,.35); margin-top: -11px; }
+  input[type=range]::-moz-range-thumb { width: 24px; height: 24px; border-radius: 50%; background: var(--guess); border: 4px solid var(--card); box-shadow: 0 2px 8px rgba(0,0,0,.35); }
+  input[type=range].untouched::-webkit-slider-thumb { opacity: 0; }
+  input[type=range].untouched::-moz-range-thumb { opacity: 0; }
+  .scale { display: flex; justify-content: space-between; font-size: .85rem; color: var(--muted); padding: 0 2px; font-variant-numeric: tabular-nums; }
+  .actions { display: flex; justify-content: space-between; align-items: center; margin-top: 28px; gap: 12px; }
+  .actions .back { background: none; color: var(--muted); padding: 10px 4px; font-weight: 600; }
+
+  /* ---------- results ---------- */
+  #results h1 { font-size: clamp(1.8rem, 6vw, 2.4rem); margin-bottom: 6px; }
+  .score { display: flex; align-items: center; gap: 22px; margin: 18px 0 8px; flex-wrap: wrap; }
+  .ring { width: 124px; height: 124px; flex: none; position: relative; }
+  .ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+  .ring circle { fill: none; stroke-width: 12; }
+  .ring .bg { stroke: var(--line); }
+  .ring .fg { stroke: var(--accent); stroke-linecap: round; transition: stroke-dashoffset 1s ease; }
+  .ring b { position: absolute; inset: 0; display: grid; place-items: center; font-size: 1.9rem; font-variant-numeric: tabular-nums; }
+  .score .txt { flex: 1; min-width: 14em; }
+  .score .txt h2 { font-size: 1.3rem; margin-bottom: 4px; }
+  .legend { display: flex; gap: 18px; font-size: .9rem; color: var(--muted); margin: 18px 0 4px; flex-wrap: wrap; }
+  .legend span::before { content: ""; display: inline-block; width: 12px; height: 12px; border-radius: 50%; margin-right: 6px; vertical-align: -1px; }
+  .legend .l-real::before { background: var(--accent); }
+  .legend .l-guess::before { background: transparent; border: 3px solid var(--guess); width: 12px; height: 12px; box-sizing: border-box; }
+  .res { border-top: 1px solid var(--line); padding: 20px 0 6px; }
+  .res h3 { font-size: 1.05rem; margin-bottom: 14px; }
+  .res .tag { display: inline-block; font-size: .8rem; font-weight: 700; padding: 2px 10px; border-radius: 999px; margin-left: 8px; vertical-align: 2px; color: #fff; }
+  .tag.good { background: var(--good); } .tag.ok { background: var(--warn); } .tag.bad { background: var(--bad); }
+  .track { position: relative; height: 10px; background: var(--line); border-radius: 5px; margin: 28px 8px 30px; }
+  .track .gap { position: absolute; top: 3px; height: 4px; background: var(--guess); opacity: .35; border-radius: 2px; }
+  .mk { position: absolute; top: 50%; transform: translate(-50%, -50%); width: 20px; height: 20px; border-radius: 50%; }
+  .mk.real { background: var(--accent); z-index: 2; }
+  .mk.guess { border: 4px solid var(--guess); background: var(--card); z-index: 3; }
+  .mk em { position: absolute; font-style: normal; font-weight: 700; font-size: .85rem; white-space: nowrap; left: 50%; transform: translateX(-50%); font-variant-numeric: tabular-nums; }
+  .mk.real em { top: 26px; color: var(--accent); }
+  .mk.guess em { top: -26px; color: var(--guess); }
+  .detail { font-size: .94rem; color: var(--muted); }
+  .detail strong { color: var(--ink); }
+  .src a { color: var(--accent); font-weight: 600; }
+  .src { font-size: .85rem; color: var(--muted); border-left: 3px solid var(--line); padding-left: 10px; margin-top: 8px; }
+  .reflect { background: var(--accent-soft); border-radius: 14px; padding: 18px 20px; margin-top: 26px; }
+  .reflect h2 { font-size: 1.1rem; margin-bottom: 8px; }
+  .reflect ul { margin: 0; padding-left: 1.2em; }
+  .reflect li { margin-bottom: 6px; }
+  .btnrow { display: flex; gap: 12px; margin-top: 26px; flex-wrap: wrap; }
+  .foot { color: var(--muted); font-size: .82rem; margin-top: 22px; }
+  @media (max-width: 440px) {
+    .card { padding: 22px 18px; }
+    .qtitle { font-size: 1.3rem; }
+    .readout .num { font-size: 3.4rem; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+<main>
+
+  <!-- START -->
+  <section id="start" class="card" aria-labelledby="start-title">
+    <div class="kicker">LMG · English EF</div>
+    <h1 id="start-title">Survey <span>Time</span></h1>
+    <p class="sub">Six questions about teenagers whose parents got divorced. Guess the real numbers with a slider &ndash; then see how close you were.</p>
+    <button id="go" type="button">Go</button>
+    <p id="last" class="hidden"></p>
+  </section>
+
+  <!-- QUESTION -->
+  <section id="quiz" class="card hidden" aria-live="polite">
+    <div class="progress" id="progress" aria-hidden="true"></div>
+    <div class="qnum" id="qnum"></div>
+    <h2 class="qtitle" id="qtitle"></h2>
+    <p class="qctx" id="qctx"></p>
+    <div class="readout" id="readout"></div>
+    <div class="sliderwrap">
+      <input type="range" id="slider" min="1" max="100" step="1" value="50" class="untouched" aria-labelledby="qtitle">
+      <div class="scale"><span>1</span><span>25</span><span>50</span><span>75</span><span>100</span></div>
+    </div>
+    <div class="actions">
+      <button type="button" class="back" id="back">&larr; Back</button>
+      <button type="button" id="next" disabled>Lock in</button>
+    </div>
+  </section>
+
+  <!-- RESULTS -->
+  <section id="results" class="card hidden" aria-labelledby="res-title">
+    <h1 id="res-title">Your results</h1>
+    <div class="score">
+      <div class="ring"><svg viewBox="0 0 120 120"><circle class="bg" cx="60" cy="60" r="52"/><circle class="fg" id="ringfg" cx="60" cy="60" r="52"/></svg><b id="scorenum">0</b></div>
+      <div class="txt"><h2 id="verdict"></h2><p id="tendency" class="detail"></p></div>
+    </div>
+    <div class="legend"><span class="l-real">Real result</span><span class="l-guess">Your estimate</span></div>
+    <div id="reslist"></div>
+    <div class="reflect">
+      <h2>Talk about it</h2>
+      <ul>
+        <li>Which result surprised you most &ndash; and why did you expect something different?</li>
+        <li>These numbers are averages. What do they <em>not</em> tell us about one single teenager?</li>
+        <li>Do the studies show that divorce <em>causes</em> these effects, or could something else (conflict, money, stress before the break-up) play a role?</li>
+        <li>Most of the studies are from the USA in the 1980s&ndash;2000s. Would the numbers look the same at LMG today?</li>
+      </ul>
+    </div>
+    <div class="btnrow">
+      <button type="button" id="again">Try again</button>
+      <button type="button" class="ghost" id="home">Back to start</button>
+    </div>
+    <p class="foot">Your estimates are stored only in this browser (localStorage). No name, no account, nothing is sent anywhere.</p>
+  </section>
+
+</main>
+
+<script>
+"use strict";
+
+/*
+ * Every number below comes from a published source (see `src`).
+ * base = rate in the comparison group, div = rate for children of divorced parents,
+ * answer = what the slider is compared with.
+ */
+const QUESTIONS = [
+  {
+    title: "Out of 100 young people in the Netherlands, how many have lived through their parents' divorce by the age of 19?",
+    context: "Researchers followed 2,230 Dutch children from about age 11 to about age 19.",
+    unit: "out of 100 young people",
+    answer: 31,
+    explain: "<strong>31 out of 100</strong> (21 had already experienced it at about age 11). Parental divorce is common &ndash; almost one in three.",
+    src: "Tullius, De Kroon, Almansa &amp; Reijneveld (2022), <em>European Child &amp; Adolescent Psychiatry</em> &ndash; TRAILS study, N = 2,230.",
+    url: "https://doi.org/10.1007/s00787-020-01715-0"
+  },
+  {
+    title: "Out of 100 teenagers aged 12–16, how many MORE receive psychological help when their parents are divorced?",
+    context: "Compare 100 US teens whose parents stayed together with 100 teens whose parents divorced: by how many does the number who got psychological help go up?",
+    unit: "more per 100 teenagers",
+    answer: 10,
+    explain: "<strong>+10 per 100</strong>: 21 of 100 teens from divorced families received psychological help, compared with 11 of 100 from intact families. So about <strong>79 of 100</strong> teens of divorced parents coped without it.",
+    src: "Zill, Morrison &amp; Coiro (1993), National Survey of Children, as summarised in the Department of Justice Canada review <em>Risks and Protectors for Children of Separation and Divorce</em> (2002).",
+    url: "https://justice.gc.ca/eng/rp-pr/fl-lf/divorce/2002_2/p2.html"
+  },
+  {
+    title: "Out of 100 teenagers aged 12–16, how many MORE say they have a poor relationship with their FATHER when parents are divorced?",
+    context: "“Poor” means the teen is close to the parent in none or only one of four ways (feeling close, satisfied with affection, wanting to be like the parent, enjoying things together).",
+    unit: "more per 100 teenagers",
+    answer: 18,
+    explain: "<strong>+18 per 100</strong>: 32 of 100 teens from divorced families reported a poor relationship with their father, compared with 14 of 100 in intact families.",
+    src: "Zill, Morrison &amp; Coiro (1993), N = 1,147 US children (240 with divorced parents), as summarised in the Department of Justice Canada review (2002).",
+    url: "https://justice.gc.ca/eng/rp-pr/fl-lf/divorce/2002_2/p3.html"
+  },
+  {
+    title: "The same study asked about the MOTHER when the young people were 18–22. How many MORE per 100 report a poor relationship with her?",
+    context: "Remember: at age 12–16, teens from divorced and intact families were equally likely to report a poor relationship with their mother.",
+    unit: "more per 100 young people",
+    answer: 7,
+    explain: "<strong>+7 per 100</strong>: 25 of 100 from divorced families vs. 18 of 100 from intact families. The gap for mothers is much smaller than for fathers &ndash; and at 12&ndash;16 it was 8 vs. 8, i.e. zero.",
+    src: "Zill, Morrison &amp; Coiro (1993), as summarised in the Department of Justice Canada review (2002).",
+    url: "https://justice.gc.ca/eng/rp-pr/fl-lf/divorce/2002_2/p3.html"
+  },
+  {
+    title: "Out of 100 children, how many MORE have serious social, emotional or psychological problems when their parents are divorced?",
+    context: "Psychologist E. Mavis Hetherington followed nearly 1,400 families and about 2,500 children for 30 years.",
+    unit: "more per 100 children",
+    answer: 15,
+    explain: "<strong>+15 per 100</strong>: about 25 of 100 children of divorce vs. 10 of 100 in intact families. That also means <strong>75&ndash;80 of 100</strong> children of divorce grow up fairly well-adjusted.",
+    src: "Hetherington &amp; Kelly (2002), <em>For Better or for Worse</em>, as reported by The Cavalier Daily (Univ. of Virginia), 6 Feb 2002. Figure is from press coverage of the book.",
+    url: "https://www.cavalierdaily.com/article/2002/02/professor-publishes-book-on-divorce"
+  },
+  {
+    title: "Out of 100 teenagers, how many FEWER finish high school because their parents divorced?",
+    context: "This US study compared similar children and tried to separate the effect of the divorce itself from other differences between families.",
+    unit: "fewer per 100 teenagers",
+    answer: 4,
+    explain: "<strong>About 4 fewer per 100</strong> (reported as a “4% lower probability” of finishing high school; 7% lower for college). The effect was larger (6%) for children whose parents were unlikely to split up, and not significant for children from high-risk families.",
+    src: "Brand, Moore, Song &amp; Xie (2019), <em>PNAS</em> 116(15) &ndash; NLSY79, N = 5,176 for high school completion.",
+    url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC6462058/"
+  }
+];
+
+const STORE_KEY = "lmg-ef-survey-time-result";
+const TOLERANCE = 25; // points of error at which the question score reaches 0
+
+const $ = id => document.getElementById(id);
+const views = { start: $("start"), quiz: $("quiz"), results: $("results") };
+const slider = $("slider"), nextBtn = $("next"), backBtn = $("back");
+
+let idx = 0;
+let guesses = new Array(QUESTIONS.length).fill(null);
+
+function show(name) {
+  for (const k in views) views[k].classList.toggle("hidden", k !== name);
+  window.scrollTo(0, 0);
+}
+
+/* ---------- storage (results only) ---------- */
+function loadSaved() {
+  try { return JSON.parse(localStorage.getItem(STORE_KEY)); } catch (e) { return null; }
+}
+function save(data) {
+  try { localStorage.setItem(STORE_KEY, JSON.stringify(data)); } catch (e) { /* storage unavailable: results still shown */ }
+}
+
+/* ---------- scoring ---------- */
+const qScore = (g, a) => Math.max(0, Math.round(100 * (1 - Math.abs(g - a) / TOLERANCE)));
+function summarize(g) {
+  const scores = g.map((v, i) => qScore(v, QUESTIONS[i].answer));
+  const total = Math.round(scores.reduce((s, x) => s + x, 0) / scores.length);
+  const bias = g.reduce((s, v, i) => s + (v - QUESTIONS[i].answer), 0) / g.length;
+  return { scores, total, bias };
+}
+
+/* ---------- start ---------- */
+function renderLast() {
+  const el = $("last"), s = loadSaved();
+  if (s && Array.isArray(s.guesses) && s.guesses.length === QUESTIONS.length) {
+    const d = new Date(s.date);
+    el.innerHTML = 'Your last result: <b>' + s.total + ' / 100</b> (' + d.toLocaleDateString() + ') &middot; <button type="button" id="showlast">view</button>';
+    el.classList.remove("hidden");
+    $("showlast").onclick = () => { guesses = s.guesses; renderResults(false); show("results"); };
+  } else {
+    el.classList.add("hidden");
+  }
+}
+
+$("go").onclick = () => { idx = 0; guesses = new Array(QUESTIONS.length).fill(null); renderQuestion(); show("quiz"); };
+
+/* ---------- questions ---------- */
+function renderQuestion() {
+  const q = QUESTIONS[idx];
+  $("progress").innerHTML = QUESTIONS.map((_, i) => '<i class="' + (i < idx ? "done" : i === idx ? "now" : "") + '"></i>').join("");
+  $("qnum").textContent = "Question " + (idx + 1) + " of " + QUESTIONS.length;
+  $("qtitle").textContent = q.title;
+  $("qctx").textContent = q.context;
+  const prev = guesses[idx];
+  slider.value = prev === null ? 50 : prev;
+  slider.classList.toggle("untouched", prev === null);
+  nextBtn.disabled = prev === null;
+  nextBtn.textContent = idx === QUESTIONS.length - 1 ? "Finish" : "Lock in";
+  backBtn.style.visibility = idx === 0 ? "hidden" : "visible";
+  drawReadout(prev);
+}
+function drawReadout(v) {
+  const q = QUESTIONS[idx];
+  $("readout").innerHTML = v === null
+    ? '<div class="hint">Click or drag the slider to give your estimate.</div>'
+    : '<div class="num">' + v + '</div><div class="unit">' + q.unit + '</div>';
+}
+function commitGuess() {
+  const v = +slider.value;
+  guesses[idx] = v;
+  slider.classList.remove("untouched");
+  nextBtn.disabled = false;
+  drawReadout(v);
+}
+slider.addEventListener("input", commitGuess);
+// Clicking the track exactly at the start value (50) fires no "input" event, so also commit on release / key press.
+slider.addEventListener("pointerup", () => { if (guesses[idx] === null) commitGuess(); });
+slider.addEventListener("keydown", e => {
+  if (guesses[idx] === null && /^(Arrow|Page|Home|End)/.test(e.key)) setTimeout(commitGuess, 0);
+});
+nextBtn.onclick = () => {
+  if (guesses[idx] === null) return;
+  if (idx < QUESTIONS.length - 1) { idx++; renderQuestion(); }
+  else finish();
+};
+backBtn.onclick = () => { if (idx > 0) { idx--; renderQuestion(); } };
+
+/* ---------- results ---------- */
+function finish() {
+  const { total } = summarize(guesses);
+  save({ date: new Date().toISOString(), guesses: guesses.slice(), total });
+  renderResults(true);
+  show("results");
+}
+
+function verdictFor(t) {
+  if (t >= 80) return "Statistician in the making!";
+  if (t >= 60) return "Very good instincts.";
+  if (t >= 35) return "Not bad &ndash; with a few surprises.";
+  return "Humbling, isn&rsquo;t it? Real data often surprises us.";
+}
+
+function renderResults(animate) {
+  const { scores, total, bias } = summarize(guesses);
+  $("scorenum").textContent = total;
+  $("verdict").innerHTML = verdictFor(total);
+  const abs = Math.abs(Math.round(bias));
+  $("tendency").textContent = abs < 3
+    ? "On average your estimates were well balanced."
+    : "On average you " + (bias > 0 ? "overestimated" : "underestimated") + " the real numbers by about " + abs + " points.";
+
+  const C = 2 * Math.PI * 52, fg = $("ringfg");
+  fg.style.strokeDasharray = C;
+  fg.style.strokeDashoffset = animate ? C : C * (1 - total / 100);
+  if (animate) requestAnimationFrame(() => requestAnimationFrame(() => { fg.style.strokeDashoffset = C * (1 - total / 100); }));
+
+  $("reslist").innerHTML = QUESTIONS.map((q, i) => {
+    const g = guesses[i], a = q.answer, s = scores[i], diff = g - a;
+    const cls = s >= 70 ? "good" : s >= 30 ? "ok" : "bad";
+    const word = s >= 70 ? "Close!" : s >= 30 ? "Fairly close" : "Far off";
+    const lo = Math.min(g, a), hi = Math.max(g, a);
+    const diffTxt = diff === 0 ? "Exactly right!" : "You were off by " + Math.abs(diff) + " (" + (diff > 0 ? "too high" : "too low") + ").";
+    return '<div class="res">' +
+      '<h3>' + (i + 1) + '. ' + q.title + '<span class="tag ' + cls + '">' + word + '</span></h3>' +
+      '<div class="track" role="img" aria-label="Your estimate ' + g + ', real result ' + a + '">' +
+        '<div class="gap" style="left:' + lo + '%;width:' + (hi - lo) + '%"></div>' +
+        '<div class="mk real" style="left:' + a + '%"><em>' + a + '</em></div>' +
+        '<div class="mk guess" style="left:' + g + '%"><em>' + g + '</em></div>' +
+      '</div>' +
+      '<p class="detail"><strong>' + diffTxt + '</strong> ' + q.explain + '</p>' +
+      '<p class="src">Source: ' + q.src + ' <a href="' + q.url + '" target="_blank" rel="noopener">Link</a></p>' +
+    '</div>';
+  }).join("");
+}
+
+$("again").onclick = () => $("go").click();
+$("home").onclick = () => { renderLast(); show("start"); };
+
+renderLast();
+</script>
+</body>
+</html>
